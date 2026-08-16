@@ -1,0 +1,417 @@
+:root {
+  --bg: #0f1115;
+  --panel: #181c24;
+  --panel-soft: #1f2530;
+  --border: #2b3340;
+  --text: #f5f7fa;
+  --muted: #9ca7b5;
+  --accent: #f0b90b;
+  --accent-dark: #a17700;
+  --danger: #c94b4b;
+  --success: #2ca56d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.screen {
+  min-height: 100vh;
+}
+
+.login-card {
+  width: min(100%, 420px);
+  margin: 8vh auto;
+  padding: 32px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  margin-top: 10px;
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 13px;
+}
+
+.stack {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--panel-soft);
+  color: var(--text);
+}
+
+input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+}
+
+.primary-btn,
+.secondary-btn,
+.tiny-btn,
+.logout-link {
+  border: 0;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.primary-btn {
+  padding: 12px 16px;
+  background: var(--accent);
+  color: #111;
+  font-weight: 700;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover,
+.tiny-btn:hover,
+.logout-link:hover {
+  opacity: 0.92;
+}
+
+.secondary-btn {
+  padding: 10px 14px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.tiny-btn {
+  padding: 8px 10px;
+  background: var(--panel-soft);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.danger-btn {
+  color: #fff;
+  background: rgba(201, 75, 75, 0.16);
+  border-color: rgba(201, 75, 75, 0.35);
+}
+
+.logout-link {
+  background: transparent;
+  padding: 0;
+  color: var(--muted);
+  text-align: left;
+}
+
+.error-text {
+  margin-top: 14px;
+  min-height: 20px;
+  color: #ff8e8e;
+  font-size: 14px;
+}
+
+#dashboard-screen {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 28px 22px;
+  background: #0b0d12;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.nav {
+  display: grid;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.nav a,
+.nav button {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: transparent;
+}
+
+.nav a:hover,
+.nav button:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.content {
+  padding: 28px;
+  display: grid;
+  gap: 24px;
+}
+
+.page-header,
+.panel-header,
+.subsection-header,
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  display: grid;
+  gap: 20px;
+}
+
+.pill {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(240, 185, 11, 0.1);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.stat-value {
+  margin-top: 10px;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.narrow-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.subsection {
+  display: grid;
+  gap: 16px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.data-table {
+  width: 100%;
+  min-width: 1200px;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.data-table th {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: left;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table td input,
+.data-table td select {
+  min-width: 110px;
+}
+
+.small-input {
+  max-width: 84px;
+}
+
+.row-actions,
+.order-controls,
+.stacked-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.order-controls {
+  align-items: flex-start;
+}
+
+.stacked-actions {
+  flex-direction: column;
+}
+
+.settings-list {
+  display: grid;
+  gap: 12px;
+}
+
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 16px;
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.settings-label {
+  color: var(--muted);
+}
+
+.settings-value {
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  #dashboard-screen {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .form-grid,
+  .narrow-grid,
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .content {
+    padding: 18px;
+  }
+
+  .panel,
+  .login-card {
+    padding: 18px;
+  }
+
+  .page-header,
+  .panel-header,
+  .subsection-header,
+  .button-row,
+  .settings-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav {
+    grid-template-columns: 1fr 1fr;
+  }
+}

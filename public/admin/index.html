@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/admin/styles.css" />
+  </head>
+  <body>
+    <div id="login-screen" class="screen">
+      <div class="login-card">
+        <div class="eyebrow">Secure Admin Access</div>
+        <h1>Admin Login</h1>
+        <p class="muted">Sign in to update the wallet values and recent transactions shown on the main page.</p>
+        <form id="login-form" class="stack">
+          <label>
+            <span>Username</span>
+            <input type="text" name="username" autocomplete="username" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" name="password" autocomplete="current-password" required />
+          </label>
+          <button type="submit" class="primary-btn">Login</button>
+        </form>
+        <div id="login-error" class="error-text"></div>
+      </div>
+    </div>
+
+    <div id="dashboard-screen" class="screen hidden">
+      <aside class="sidebar">
+        <div>
+          <div class="brand">Admin</div>
+          <div class="muted small" id="admin-username"></div>
+        </div>
+        <nav class="nav">
+          <a href="#overview">Overview</a>
+          <a href="#page-values">Page Values</a>
+          <a href="#recent-transactions">Recent Transactions</a>
+          <a href="#settings">Settings</a>
+          <a href="#account">Admin Account</a>
+          <button id="logout-button" type="button" class="logout-link">Logout</button>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <header class="page-header">
+          <div>
+            <div class="eyebrow">Wallet Admin Dashboard</div>
+            <h1>Manage live page content</h1>
+          </div>
+          <div id="save-status" class="pill">Ready</div>
+        </header>
+
+        <section id="overview" class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Overview</h2>
+              <p class="muted">These values are loaded from PostgreSQL and shown on the main page through the API.</p>
+            </div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Assets</div>
+              <div class="stat-value" id="overview-assets-count">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Transactions</div>
+              <div class="stat-value" id="overview-transactions-count">0</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Estimated Total Value</div>
+              <div class="stat-value" id="overview-total-value">0.00</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="page-values" class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Page Values</h2>
+              <p class="muted">Edit the live values shown in the wallet overview and asset list.</p>
+            </div>
+            <button id="save-settings-button" type="button" class="primary-btn">Save Changes</button>
+          </div>
+
+          <form id="settings-form" class="form-grid">
+            <label>
+              <span>Estimated Total Value</span>
+              <input type="text" name="estimated_total_value" required />
+            </label>
+            <label>
+              <span>Estimated Total Currency</span>
+              <input type="text" name="estimated_total_currency" required />
+            </label>
+            <label>
+              <span>Estimated Total USD</span>
+              <input type="text" name="estimated_total_usd" required />
+            </label>
+            <label>
+              <span>Assets Title</span>
+              <input type="text" name="assets_title" required />
+            </label>
+            <label>
+              <span>Assets Button Label</span>
+              <input type="text" name="assets_cta_label" required />
+            </label>
+            <label>
+              <span>Recent Transactions Title</span>
+              <input type="text" name="recent_transactions_title" required />
+            </label>
+            <label>
+              <span>Recent Transactions Button</span>
+              <input type="text" name="recent_transactions_more_label" required />
+            </label>
+          </form>
+
+          <div class="subsection">
+            <div class="subsection-header">
+              <h3>Editable Asset Rows</h3>
+              <button id="add-asset-button" type="button" class="secondary-btn">+ Add Asset</button>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Order</th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Value</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                    <th>Icon URL</th>
+                    <th>Enabled</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="assets-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="recent-transactions" class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Recent Transactions</h2>
+              <p class="muted">Add, edit, reorder, enable, or delete the transactions shown on the main page.</p>
+            </div>
+            <button id="add-transaction-button" type="button" class="primary-btn">+ Add Transaction</button>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Currency</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                  <th>Icon</th>
+                  <th>Enabled</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="settings" class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Settings</h2>
+              <p class="muted">Deployment and runtime notes for the live site.</p>
+            </div>
+          </div>
+          <div class="settings-list">
+            <div class="settings-item">
+              <div class="settings-label">Main page refresh method</div>
+              <div class="settings-value">API polling every 15 seconds</div>
+            </div>
+            <div class="settings-item">
+              <div class="settings-label">Auth method</div>
+              <div class="settings-value">JWT stored in an HTTP-only cookie</div>
+            </div>
+            <div class="settings-item">
+              <div class="settings-label">Database source of truth</div>
+              <div class="settings-value">PostgreSQL</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="account" class="panel">
+          <div class="panel-header">
+            <div>
+              <h2>Admin Account</h2>
+              <p class="muted">Change the admin password securely.</p>
+            </div>
+          </div>
+          <form id="password-form" class="form-grid narrow-grid">
+            <label>
+              <span>Current Password</span>
+              <input type="password" name="currentPassword" autocomplete="current-password" required />
+            </label>
+            <label>
+              <span>New Password</span>
+              <input type="password" name="newPassword" autocomplete="new-password" minlength="8" required />
+            </label>
+            <div class="button-row">
+              <button type="submit" class="primary-btn">Update Password</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <template id="asset-row-template">
+      <tr data-kind="asset">
+        <td>
+          <div class="order-controls">
+            <input type="number" class="small-input" data-field="sort_order" />
+            <div class="stacked-actions">
+              <button type="button" data-action="move-up" class="tiny-btn">↑</button>
+              <button type="button" data-action="move-down" class="tiny-btn">↓</button>
+            </div>
+          </div>
+        </td>
+        <td><input type="text" data-field="asset_code" /></td>
+        <td><input type="text" data-field="asset_name" /></td>
+        <td><input type="text" data-field="amount_display" /></td>
+        <td><input type="text" data-field="value_display" /></td>
+        <td><input type="text" data-field="price_display" /></td>
+        <td><input type="text" data-field="action_label" /></td>
+        <td><input type="url" data-field="icon_url" /></td>
+        <td><input type="checkbox" data-field="enabled" /></td>
+        <td>
+          <div class="row-actions">
+            <button type="button" data-action="save" class="tiny-btn">Save</button>
+            <button type="button" data-action="delete" class="tiny-btn danger-btn">Delete</button>
+          </div>
+        </td>
+      </tr>
+    </template>
+
+    <template id="transaction-row-template">
+      <tr data-kind="transaction">
+        <td>
+          <div class="order-controls">
+            <input type="number" class="small-input" data-field="sort_order" />
+            <div class="stacked-actions">
+              <button type="button" data-action="move-up" class="tiny-btn">↑</button>
+              <button type="button" data-action="move-down" class="tiny-btn">↓</button>
+            </div>
+          </div>
+        </td>
+        <td><input type="text" data-field="transaction_type" /></td>
+        <td><input type="text" data-field="description" /></td>
+        <td><input type="text" data-field="amount_display" /></td>
+        <td><input type="text" data-field="currency" /></td>
+        <td><input type="text" data-field="date_label" /></td>
+        <td><input type="text" data-field="time_label" /></td>
+        <td><input type="text" data-field="status" /></td>
+        <td>
+          <select data-field="icon_category">
+            <option value="transfer">Transfer</option>
+            <option value="deposit">Deposit</option>
+            <option value="withdraw">Withdraw</option>
+          </select>
+        </td>
+        <td><input type="checkbox" data-field="enabled" /></td>
+        <td>
+          <div class="row-actions">
+            <button type="button" data-action="save" class="tiny-btn">Save</button>
+            <button type="button" data-action="delete" class="tiny-btn danger-btn">Delete</button>
+          </div>
+        </td>
+      </tr>
+    </template>
+
+    <script src="/admin/app.js" defer></script>
+  </body>
+</html>
